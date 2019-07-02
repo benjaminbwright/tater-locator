@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,66 +9,108 @@
     <style>
         /* Always set the map height explicitly to define the size of the div
             * element that contains the map. */
+        
         #map {
             height: 100%;
         }
         /* Optional: Makes the sample page fill the window. */
-        html, body {
+        
+        html,
+        body {
             height: 100%;
             margin: 0;
             padding: 0;
         }
-     </style>
+    </style>
 </head>
+
 <body>
-    <h1>Tot Loc: The Tot Locator</h1>
+    <h1>Tater Locator</h1>
     <div id="map">
 
     </div>
-    
+
     <script type="text/javascript">
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
-        });
-        infoWindow = new google.maps.InfoWindow;
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+        var map, infoWindow;
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 40.712,
+                    lng: -74.006
+                },
+                zoom: 14
+            });
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map.setCenter(pos);
+                    $.ajax({
+                        method: 'GET',
+                        url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=tater+tots&latitude=' + pos.lat + '&longitude=' + pos.lng,
+                        headers: {
+                            'Authorization': 'Bearer RU48vaocL9hVtr0Y-NuP78wm6YCrvf5xmenzdXguLC1KGU2tXUvfa7jyx4_kBQoLFI4uTdsNES9fdx7m_5797qvbW3dLgmSAdxoIaltoS5CgFXxjgcLESn5oS2UaXXYx'
+                        },
+                        dataType: 'json'
+                    }).then(function(response) {
+                        console.log(response);
+                        for (let index = 0; index < response.businesses.length; index++) {
+                            console.log(response.businesses[index])
+                                // var marker = new google.maps.Marker({
+                                //     position: {
+                                //         lat: response.businesses[index].coordinates.latitude,
+                                //         lng: response.businesses[index].coordinates.longitude
+                                //     },
+                                //     map: map,
+                                //     title: response.businesses[index].name
+                                // });
+                            var coords = response.businesses[index].coordinates;
+                            var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+                            var icon = {
+                                url: 'assets/images/category-tatertots-desktop.png',
+                                scaledSize: new google.maps.Size(75, 50)
+                            }
+                            var marker = new google.maps.Marker({
+                                position: latLng,
+                                map: map,
+                                title: response.businesses[index].name,
+                                icon: icon
+                            });
+                        }
+                    });
+
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
         }
-      }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+
+
+        }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTjxYc7NEsWuzFgUMq1u_iqZcpFUTLGK0&callback=initMap" async defer></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </body>
+
 </html>
