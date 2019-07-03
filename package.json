@@ -1,0 +1,22 @@
+{
+  "name": "tatr-locatr",
+  "version": "1.0.0",
+  "description": "An app that locates nearby purveyors of tater tots.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminbwright/tater-locator.git"
+  },
+  "author": "Benjamin Wright",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminbwright/tater-locator/issues"
+  },
+  "homepage": "https://github.com/benjaminbwright/tater-locator#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -65,14 +65,6 @@
                         console.log(response);
                         for (let index = 0; index < response.businesses.length; index++) {
                             console.log(response.businesses[index])
-                                // var marker = new google.maps.Marker({
-                                //     position: {
-                                //         lat: response.businesses[index].coordinates.latitude,
-                                //         lng: response.businesses[index].coordinates.longitude
-                                //     },
-                                //     map: map,
-                                //     title: response.businesses[index].name
-                                // });
                             var coords = response.businesses[index].coordinates;
                             var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
                             var icon = {
