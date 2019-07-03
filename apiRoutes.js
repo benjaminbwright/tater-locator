@@ -19,4 +19,5 @@ apiRoutes.get('/v1/tots/:lat/:lng', (req, res) => {
     });
 });
 
+
 module.exports = apiRoutes;
