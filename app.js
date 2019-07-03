@@ -4,7 +4,7 @@ const app = express();
 
 const apiRoutes = require('./apiRoutes')
 
-var PORT = 8080;
+const PORT = 8080;
 
 // Make the public folder available to serve image assets
 app.use(express.static('public'));
