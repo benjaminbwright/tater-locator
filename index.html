@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tot Loc: The Tot Locator</title>
+    <title>Tatr Locatr: Find A Tot While It's Still Hot</title>
     <style>
         /* Always set the map height explicitly to define the size of the div
             * element that contains the map. */
@@ -27,7 +27,6 @@
 <body>
     <h1>Tater Locator</h1>
     <div id="map">
-
     </div>
 
     <script type="text/javascript">
@@ -56,10 +55,7 @@
                     map.setCenter(pos);
                     $.ajax({
                         method: 'GET',
-                        url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=tater+tots&latitude=' + pos.lat + '&longitude=' + pos.lng,
-                        headers: {
-                            'Authorization': 'Bearer RU48vaocL9hVtr0Y-NuP78wm6YCrvf5xmenzdXguLC1KGU2tXUvfa7jyx4_kBQoLFI4uTdsNES9fdx7m_5797qvbW3dLgmSAdxoIaltoS5CgFXxjgcLESn5oS2UaXXYx'
-                        },
+                        url: '/api/v1/tots/' + pos.lat + '/' + pos.lng,
                         dataType: 'json'
                     }).then(function(response) {
                         console.log(response);
