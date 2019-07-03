@@ -15,9 +15,12 @@ app.get('/', (req, res) => {
 
 // API Routes ==================================== //
 
+// TODO: Move api routes to a middleware
+
 // Get tots from yelp
 app.get('/api/v1/tots/:lat/:lng', (req, res) => {
 
+    // configurations for axios request
     var url = 'https://api.yelp.com/v3/businesses/search?term=tater+tots&latitude=' + req.params.lat + '&longitude=' + req.params.lng;
     var config = {
         headers: {
@@ -25,12 +28,15 @@ app.get('/api/v1/tots/:lat/:lng', (req, res) => {
         }
     }
 
+    // Get tot json from yelp
     axios.get(url, config).then((response) => {
+        // Return json code
         res.send(response.data);
     });
 
 })
 
+// Start the server listening for requests.
 app.listen(PORT, () => {
     console.log(`Your server is running on http://localhost:${PORT}`);
 });
