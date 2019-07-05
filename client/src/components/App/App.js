@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 import { Header } from '../Header/Header';
+import TotMap from '../TotMap/TotMap';
 
 class App extends Component {
-
-  constructor() {
-    // Get info from the parent &
-    // Use "this" statement
-    super();
-    this.state = {}
-  }
 
   componentDidMount() {
 
@@ -18,6 +12,7 @@ class App extends Component {
     return (
       <div className="App page bg-white">
         <Header />
+        <TotMap />
       </div>
     );
   }
