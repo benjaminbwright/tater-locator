@@ -6,11 +6,13 @@ const apiRoutes = require('./apiRoutes')
 
 const PORT = process.env.PORT || 5000;
 
-// Make the public folder available to serve image assets
-app.use(express.static('public'));
-
 // Make compiled react app public
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Make the public folder available to serve image assets
+//app.use(express.static('public'));
+
+
 
 // Home route
 // app.get('/', (req, res) => {
