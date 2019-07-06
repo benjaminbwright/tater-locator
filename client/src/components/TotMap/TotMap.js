@@ -87,5 +87,5 @@ export class TotMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ("AIzaSyDTjxYc7NEsWuzFgUMq1u_iqZcpFUTLGK0")
+    apiKey: (process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 })(TotMap)

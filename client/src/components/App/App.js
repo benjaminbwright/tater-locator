@@ -4,10 +4,6 @@ import TotMap from '../TotMap/TotMap';
 
 class App extends Component {
 
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <div className="App page bg-white">
