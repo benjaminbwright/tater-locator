@@ -10,4 +10,6 @@ nav .sidenav-trigger {
     margin: 0 18px;
     left: 5px;
     top: 2px;
+    /* Set display to something else to see the hamburger again. */
+    display: none;
 }

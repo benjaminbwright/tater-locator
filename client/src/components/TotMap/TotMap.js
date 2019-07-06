@@ -65,7 +65,10 @@ export class TotMap extends Component {
             <Map id="TotMap"
                 style={{width: '100%', height: '90%', position: 'relative'}}
                 google={this.props.google}
-                initialCenter={userLocation} zoom={14}>
+                initialCenter={userLocation} 
+                zoom={14}
+                disableDefaultUI={true}
+            >
                 <Marker 
                     onClick={this.onMarkerClick}
                     name={'Current location'}
