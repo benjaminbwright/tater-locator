@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import axios from 'axios';
 
-console.log(process.env)
 /*global google*/ 
 
 export class TotMap extends Component {
