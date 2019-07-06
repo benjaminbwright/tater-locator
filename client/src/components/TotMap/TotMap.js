@@ -1,18 +1,80 @@
 import React, {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-// import axios from 'axios';
+import axios from 'axios';
+
+/*global google*/ 
 
 export class TotMap extends Component {
+
+    constructor() {
+        super();
+        this.state = { 
+            userLocation: { 
+                lat: 32, lng: 32 
+            }, 
+            loading: true,
+            totLocations: []
+        };
+    }
     
+    const 
+
     componentDidMount() {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+
+                this.setState({
+                    userLocation: { lat: latitude, lng: longitude },
+                    loading: false
+                });
+                axios.get(`/api/v1/tots/${this.state.userLocation.lat}/${this.state.userLocation.lng}`)
+                    .then((response) => {
+                        console.log(response);
+                        this.setState({ totLocations: response.data.businesses})
+                    });
+            },
+            () => {
+                this.setState({ loading: false });
+            }
+        );
+
+
     }
 
     render() {
-        return(
-            <Map google={this.props.google} centerAroundCurrentLocation={true} zoom={14}>
+        const { loading, userLocation, totLocations} = this.state;
+ 
+        const markerIcon = {
+            url: '../../images/category-tatertots-desktop.png', 
+            scaledSize: new google.maps.Size(75, 50) 
+        }
 
-                <Marker onClick={this.onMarkerClick}
-                    name={'Current location'} />
+        const totMarkers = totLocations.map((location) => {
+            return (
+                <Marker 
+                    onClick={this.onMarkerClick}
+                    name={'Current location'}
+                    icon={markerIcon}
+                    position={{lat: location.coordinates.latitude, lng: location.coordinates.longitude}}
+                />
+            )
+        });
+        
+        if (loading) {
+          return null;
+        }
+
+        return(
+            <Map google={this.props.google} initialCenter={userLocation} zoom={14}>
+
+                <Marker 
+                    onClick={this.onMarkerClick}
+                    name={'Current location'}
+                />
+                
+
+                {totMarkers}
 
                 <InfoWindow onClose={this.onInfoWindowClose}>
                 <div>
