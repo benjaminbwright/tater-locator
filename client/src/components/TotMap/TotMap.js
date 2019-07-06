@@ -17,8 +17,6 @@ export class TotMap extends Component {
         };
     }
     
-    const 
-
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -38,8 +36,6 @@ export class TotMap extends Component {
                 this.setState({ loading: false });
             }
         );
-
-
     }
 
     render() {
@@ -67,15 +63,11 @@ export class TotMap extends Component {
 
         return(
             <Map google={this.props.google} initialCenter={userLocation} zoom={14}>
-
                 <Marker 
                     onClick={this.onMarkerClick}
                     name={'Current location'}
                 />
-                
-
                 {totMarkers}
-
                 <InfoWindow onClose={this.onInfoWindowClose}>
                 <div>
                     <h1>A Place</h1>
