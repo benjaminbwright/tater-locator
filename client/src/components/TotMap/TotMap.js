@@ -63,7 +63,7 @@ export class TotMap extends Component {
 
         return(
             <Map id="TotMap"
-                style={{width: '100%', height: '90%', position: 'relative'}}
+                style={{width: '100%', height: '100%', position: 'relative'}}
                 google={this.props.google}
                 initialCenter={userLocation} 
                 zoom={14}

@@ -13,3 +13,7 @@ nav .sidenav-trigger {
     /* Set display to something else to see the hamburger again. */
     display: none;
 }
+
+.navbar-fixed {
+    position: fixed;
+}
