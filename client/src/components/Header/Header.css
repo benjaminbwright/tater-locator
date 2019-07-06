@@ -1,3 +1,13 @@
 nav {
     background: #000000;
 }
+
+nav .sidenav-trigger {
+    float: none;
+    position: absolute;
+    z-index: 1;
+    height: 56px;
+    margin: 0 18px;
+    left: 5px;
+    top: 2px;
+}

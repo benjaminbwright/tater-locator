@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App page bg-white">
         <Header />
-        <TotMap />
+        <TotMap id="TotMap" />
       </div>
     );
   }

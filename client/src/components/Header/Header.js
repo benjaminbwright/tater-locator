@@ -7,7 +7,7 @@ export class Header extends Component {
 
     render() {
         return (
-            <Navbar brand={<Brand />} centerLogo alignLinks="left">
+            <Navbar className="navbar-fixed" brand={<Brand />} centerLogo alignLinks="left">
             </Navbar>
         )
     }
