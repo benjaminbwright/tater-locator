@@ -1,0 +1,18 @@
+#FooterUI {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 55px;
+    z-index: 1;
+    background-color: #fff;
+    border-top: 1px solid #000;
+    nav#footer-nav {
+        background: none;
+        i {
+            color: #000;
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+    }
+}
