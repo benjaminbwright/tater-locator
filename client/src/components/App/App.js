@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Header } from '../Header/Header';
 import TotMap from '../TotMap/TotMap';
+import { FooterUI } from '../FooterUI/FooterUI';
 
 class App extends Component {
 
@@ -8,7 +9,8 @@ class App extends Component {
     return (
       <div className="App page bg-white">
         <Header />
-        <TotMap />
+        <TotMap id="TotMap" />
+        <FooterUI />
       </div>
     );
   }
