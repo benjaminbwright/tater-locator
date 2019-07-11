@@ -6,38 +6,71 @@ import axios from 'axios';
 
 export class TotMap extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { 
-            userLocation: { 
-                lat: 32, lng: 32 
-            }, 
+            // userLocation: { 
+            //     lat: 32, lng: 32 
+            // },
+            totsLoaded: this.props.totsLoaded,
             loading: true,
-            totLocations: []
+            totLocations: [],
+            // locationUpdated: this.props.locationUpdated,
+            windowCenter: {}
         };
+
+        this.loadTotLocations = this.loadTotLocations.bind(this);
+
     }
-    
-    componentDidMount() {
+
+    windowMoved = (mapProps, map) => {
+        const windowCenter = {
+            lat: map.getCenter().lat(),
+            lng: map.getCenter().lng()
+        }
+        console.log(this.state.windowCenter);
+        this.loadTotLocations(windowCenter);
+    }
+
+    getCurrentPosition = (callback) => {
         navigator.geolocation.getCurrentPosition(
             position => {
+                // get the longitude and latitude from the positions coordinates
                 const { latitude, longitude } = position.coords;
 
                 this.setState({
                     userLocation: { lat: latitude, lng: longitude },
                     loading: false
                 });
-                axios.get(`/api/v1/tots/${this.state.userLocation.lat}/${this.state.userLocation.lng}`)
-                    .then((response) => {
-                        console.log(response);
-                        this.setState({ totLocations: response.data.businesses})
-                    });
-            },
-            () => {
-                this.setState({ loading: false });
+                callback();
             }
         );
+        
     }
 
+    loadTotLocations = (location) => {
+        axios.get(`/api/v1/tots/${location.lat}/${location.lng}`)
+            .then((response) => {
+                console.log(response);
+                this.setState(() => (
+                        {totLocations: response.data.businesses}
+                    )                    
+                );
+                console.log(this.state.totsLoaded)
+            });
+    }
+    
+    componentDidMount() {
+        this.getCurrentPosition(() => {
+            console.log(this.state.userLocation)
+            this.loadTotLocations(this.state.userLocation);
+            // console.log(this.props.totsLoaded);
+        });     
+    }
+
+    componentDidUpdate() {
+    }
+    
     render() {
         const { loading, userLocation, totLocations} = this.state;
  
@@ -68,6 +101,7 @@ export class TotMap extends Component {
                 initialCenter={userLocation} 
                 zoom={14}
                 disableDefaultUI={true}
+                onDragend={this.windowMoved}
             >
                 <Marker 
                     onClick={this.onMarkerClick}
