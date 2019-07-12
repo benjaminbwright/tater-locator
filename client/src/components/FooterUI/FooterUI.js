@@ -9,7 +9,7 @@ export class FooterUI extends Component {
         return (
             <div id="FooterUI">
                 <nav id="footer-nav">
-                <i className="material-icons" onClick={this.props.updateLocation}>autorenew</i>
+                <i className="material-icons" onClick={this.props.loadTotLocations}>autorenew</i>
                 </nav>
             </div>
         )

@@ -17,13 +17,13 @@ export class TotMap extends Component {
 
     }
 
-    windowMoved = (mapProps, map) => {
-        const windowCenter = {
-            lat: map.getCenter().lat(),
-            lng: map.getCenter().lng()
-        }
-        this.props.loadTotLocations(windowCenter);
-    }
+    // windowMoved = (mapProps, map) => {
+    //     const windowCenter = {
+    //         lat: map.getCenter().lat(),
+    //         lng: map.getCenter().lng()
+    //     }
+    //     //this.props.loadTotLocations(windowCenter);
+    // }
 
     getCurrentPosition = (callback) => {
         navigator.geolocation.getCurrentPosition(
@@ -82,7 +82,7 @@ export class TotMap extends Component {
                 initialCenter={userLocation} 
                 zoom={14}
                 disableDefaultUI={true}
-                onDragend={this.windowMoved}
+                onDragend={this.props.windowMoved}
             >
                 <Marker 
                     onClick={this.onMarkerClick}
