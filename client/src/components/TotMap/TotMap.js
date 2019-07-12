@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import axios from 'axios';
+
 
 /*global google*/ 
 
@@ -9,28 +9,21 @@ export class TotMap extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            // userLocation: { 
-            //     lat: 32, lng: 32 
-            // },
             totsLoaded: this.props.totsLoaded,
             loading: true,
             totLocations: [],
-            // locationUpdated: this.props.locationUpdated,
             windowCenter: {}
         };
 
-        this.loadTotLocations = this.loadTotLocations.bind(this);
-
     }
 
-    windowMoved = (mapProps, map) => {
-        const windowCenter = {
-            lat: map.getCenter().lat(),
-            lng: map.getCenter().lng()
-        }
-        console.log(this.state.windowCenter);
-        this.loadTotLocations(windowCenter);
-    }
+    // windowMoved = (mapProps, map) => {
+    //     const windowCenter = {
+    //         lat: map.getCenter().lat(),
+    //         lng: map.getCenter().lng()
+    //     }
+    //     //this.props.loadTotLocations(windowCenter);
+    // }
 
     getCurrentPosition = (callback) => {
         navigator.geolocation.getCurrentPosition(
@@ -47,23 +40,11 @@ export class TotMap extends Component {
         );
         
     }
-
-    loadTotLocations = (location) => {
-        axios.get(`/api/v1/tots/${location.lat}/${location.lng}`)
-            .then((response) => {
-                console.log(response);
-                this.setState(() => (
-                        {totLocations: response.data.businesses}
-                    )                    
-                );
-                console.log(this.state.totsLoaded)
-            });
-    }
     
     componentDidMount() {
         this.getCurrentPosition(() => {
             console.log(this.state.userLocation)
-            this.loadTotLocations(this.state.userLocation);
+            this.props.loadTotLocations(this.state.userLocation);
             // console.log(this.props.totsLoaded);
         });     
     }
@@ -79,7 +60,7 @@ export class TotMap extends Component {
             scaledSize: new google.maps.Size(75, 50) 
         }
 
-        const totMarkers = totLocations.map((location) => {
+        const totMarkers = this.props.totLocations.map((location) => {
             return (
                 <Marker 
                     onClick={this.onMarkerClick}
@@ -101,7 +82,7 @@ export class TotMap extends Component {
                 initialCenter={userLocation} 
                 zoom={14}
                 disableDefaultUI={true}
-                onDragend={this.windowMoved}
+                onDragend={this.props.windowMoved}
             >
                 <Marker 
                     onClick={this.onMarkerClick}
