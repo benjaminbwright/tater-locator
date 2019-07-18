@@ -9,16 +9,26 @@ class App extends Component {
     super(props);
 
     this.state = {
+      // are the tots nearest to the center of the map loaded
       totsLoaded: false,
+      // array of tot locations
       totLocations: []
     };
+
+    // Bind functions for events
+    this.loadTotLocations = this.loadTotLocations.bind(this);
+
   }
 
+  // Load all of the tot location from the api into an array of objects
   loadTotLocations = location => {
+    // check if the tots are currently loaded
     if (!this.state.totsLoaded) {
+      // check if the user has dragged the map from their current location
       if (this.state.windowCenter) {
         location = this.state.windowCenter;
       }
+      // API Call
       axios
         .get(`/api/v1/tots/${location.lat}/${location.lng}`)
         .then(response => {
@@ -32,6 +42,7 @@ class App extends Component {
     }
   };
 
+  // Add the window center to the state
   windowMoved = (mapProps, map) => {
     const windowCenter = {
       lat: map.getCenter().lat(),
@@ -44,7 +55,6 @@ class App extends Component {
         windowCenter: windowCenter
       });
     }
-    //this.props.loadTotLocations(windowCenter);
   };
 
   render() {
