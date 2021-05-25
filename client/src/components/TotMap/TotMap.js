@@ -10,6 +10,7 @@ const TotMap = ({ loadTotLocations, totLocations, windowMoved }) => {
 
   useEffect(() => {
     getCurrentPosition(() => {
+      console.log(state.userLocation);
       loadTotLocations(state.userLocation);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -19,11 +20,11 @@ const TotMap = ({ loadTotLocations, totLocations, windowMoved }) => {
     dispatch({ type: "LOADING" });
     navigator.geolocation.getCurrentPosition((position) => {
       // get the longitude and latitude from the positions coordinates
-      const { latitude, longitude } = position.coords;
+      const { latitude: lat, longitude: lng } = position.coords;
       // Set the location to the nearest user location
       dispatch({
         type: "GET_CURRENT_POSITION",
-        userLocation: { lat: latitude, lng: longitude },
+        userLocation: { lat, lng },
       });
       callback();
     });
