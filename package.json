@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "tatr-locatr",
   "version": "1.0.0",
   "description": "An app that locates nearby purveyors of tater tots.",
@@ -28,4 +29,30 @@
   "devDependencies": {
     "concurrently": "^5.2.0"
   }
+=======
+    "name": "tatr-locatr",
+    "version": "1.0.0",
+    "description": "An app that locates nearby purveyors of tater tots.",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "heroku-postbuild": "cd client && npm install && npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/benjaminbwright/tater-locator.git"
+    },
+    "author": "Benjamin Wright",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/benjaminbwright/tater-locator/issues"
+    },
+    "homepage": "https://github.com/benjaminbwright/tater-locator#readme",
+    "dependencies": {
+        "axios": "^0.19.0",
+        "dotenv": "^8.0.0",
+        "express": "^4.17.1"
+    }
+>>>>>>> master
 }

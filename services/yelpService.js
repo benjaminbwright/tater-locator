@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const yelpService = {
+    
     // method that gets all the "tater tots" location
     // takes a loctation object as a parameter
     totLocations: function(location) {
@@ -12,7 +13,8 @@ const yelpService = {
             }
         }
 
-        // Get tot json from yelp
+        // Get tot json from yelp using a promise
+        // https://stackoverflow.com/questions/43463989/returning-an-axios-promise-from-function
         return axios.get(url, config)
             .then((data) => {
                 console.log(data);
@@ -20,7 +22,5 @@ const yelpService = {
             });
     }
 }
-
-
 
 module.exports = yelpService;
